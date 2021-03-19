@@ -28,11 +28,11 @@ const orm = {
             }
         );
     },
-    updateOne(tableInput, columnName, newValueName, searchColName, oldValueName, cb) {
+    updateOne(tableInput, columnName, newValueName, searchColName, oldValueId, cb) {
         const queryString = 'UPDATE ?? SET ?? = ? WHERE ?? = ?'
         connection.query(
             queryString,
-            [tableInput, columnName, newValueName, searchColName, oldValueName],
+            [tableInput, columnName, newValueName, searchColName, oldValueId],
             (err, result) => {
                 if (err) {
                     throw err;
