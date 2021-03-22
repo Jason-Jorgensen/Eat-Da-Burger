@@ -3,7 +3,7 @@ const connection = require('./connection.js');
 
 const orm = {
     selectAll(tableInput, cb) {
-        const queryString = 'SELECT * FROM ??'
+        const queryString = `SELECT * FROM ??`
         connection.query(
             queryString,
             [tableInput],
@@ -16,10 +16,11 @@ const orm = {
         );
     },
     insertOne(tableInput, columnName, newValueName,cb) {
-        const queryString = 'INSERT INTO ?? (??) VALUES (??)'
+
+        const queryString = 'INSERT INTO ?? (??) VALUES (?)'
         connection.query(
             queryString,
-            [tableInput,columnName, newValueName],
+            [tableInput,columnName,newValueName],
             (err,result) => {
                 if (err) {
                     throw err;
@@ -29,7 +30,7 @@ const orm = {
         );
     },
     updateOne(tableInput, columnName, newValueName, searchColName, oldValueId, cb) {
-        const queryString = 'UPDATE ?? SET ?? = ? WHERE ?? = ?'
+        const queryString = `UPDATE ?? SET ?? = ? WHERE ?? = ?`
         connection.query(
             queryString,
             [tableInput, columnName, newValueName, searchColName, oldValueId],
@@ -38,6 +39,17 @@ const orm = {
                     throw err;
                     }
                 cb(result)
+            }
+        );
+    },
+    clearDataBase(cb) {
+        connection.query('DELETE FROM burgers',
+        
+        (err,result) => {
+            if (err) {
+                throw err;
+            }
+            cb(result)
             }
         );
     },
